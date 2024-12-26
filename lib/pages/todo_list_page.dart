@@ -55,6 +55,28 @@ class ToDoListPage extends StatelessWidget {
 
 
                 SizedBox(height: 16),
+              
+              ListView(
+                shrinkWrap: true,
+                children: [
+                  ListTile(
+                    title: Text('Hoje'),
+                    subtitle: Text('26/12/2024'),
+                  ),
+
+                  ListTile(
+                    title: Text('Bruno'),
+                    subtitle: Text('25/11/1997'),
+                  ),
+
+                  ListTile(
+                    title: Text('Verinho'),
+                    subtitle: Text('11/12/1999'),
+                  ),
+                ],
+              ),
+
+                SizedBox(height: 16),
 
                 Row(
                   
