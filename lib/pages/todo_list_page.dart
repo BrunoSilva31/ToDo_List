@@ -1,9 +1,18 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
-class ToDoListPage extends StatelessWidget {
- const ToDoListPage({super.key});
+class ToDoListPage extends StatefulWidget {
+  ToDoListPage({super.key});
 
+  @override
+  State<ToDoListPage> createState() => _ToDoListPageState();
+}
 
+class _ToDoListPageState extends State<ToDoListPage> {
+  List<String> todo = [];
+
+  final TextEditingController todoController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +34,7 @@ class ToDoListPage extends StatelessWidget {
                     
                     Expanded( 
                       child: TextField(
+                        controller: todoController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Adicione uma tarefa',
@@ -35,7 +45,18 @@ class ToDoListPage extends StatelessWidget {
                 
                     SizedBox(width: 8),
                 
-                    ElevatedButton(onPressed: (){},
+                    ElevatedButton(onPressed: (){
+                      String text = todoController.text;
+
+                      setState(() {
+
+                        todo.add(text);
+                      });
+
+                      todoController.clear();
+
+                    },
+
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.cyanAccent,
                       padding: EdgeInsets.all(16),
@@ -54,26 +75,25 @@ class ToDoListPage extends StatelessWidget {
                 ),
 
 
-                SizedBox(height: 16),
+              SizedBox(height: 16),
               
-              ListView(
-                shrinkWrap: true,
-                children: [
-                  ListTile(
-                    title: Text('Hoje'),
-                    subtitle: Text('26/12/2024'),
-                  ),
-
-                  ListTile(
-                    title: Text('Bruno'),
-                    subtitle: Text('25/11/1997'),
-                  ),
-
-                  ListTile(
-                    title: Text('Verinho'),
-                    subtitle: Text('11/12/1999'),
-                  ),
-                ],
+              Flexible(
+                
+                child: ListView(
+                  shrinkWrap: true,
+                  children: [
+                    
+                    for(String item in todo)
+                      ListTile(
+                      title: Text(item),
+                      
+                      onTap: () {
+                        print("Tarefa: $item");
+                      },
+                    ),
+                
+                  ],
+                ),
               ),
 
                 SizedBox(height: 16),
@@ -115,5 +135,4 @@ class ToDoListPage extends StatelessWidget {
         ),
       );
   }
-
 }
