@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:todo_list/widgets/todo_list_item.dart';
 
 class ToDoListPage extends StatefulWidget {
   ToDoListPage({super.key});
@@ -58,7 +59,7 @@ class _ToDoListPageState extends State<ToDoListPage> {
                     },
 
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.cyanAccent,
+                      backgroundColor: const Color.fromARGB(255, 24, 128, 255),
                       padding: EdgeInsets.all(16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -84,13 +85,9 @@ class _ToDoListPageState extends State<ToDoListPage> {
                   children: [
                     
                     for(String item in todo)
-                      ListTile(
-                      title: Text(item),
-                      
-                      onTap: () {
-                        print("Tarefa: $item");
-                      },
-                    ),
+                      TodoListItem(
+                        title: item,
+                      ),
                 
                   ],
                 ),
@@ -109,7 +106,7 @@ class _ToDoListPageState extends State<ToDoListPage> {
 
                     ElevatedButton(onPressed: (){},
                       style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.cyanAccent,
+                      backgroundColor: Color.fromARGB(255, 24, 128, 255),
                       padding: const EdgeInsets.all(16), 
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
