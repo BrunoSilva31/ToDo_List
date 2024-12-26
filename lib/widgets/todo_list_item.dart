@@ -9,15 +9,17 @@ class TodoListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     
     return Container(
-
+    
       decoration: BoxDecoration(
         color: Colors.grey[300],
         borderRadius: BorderRadius.circular(8),
       ),
 
+      margin: const EdgeInsets.symmetric(vertical: 2),
       padding: const EdgeInsets.all(16),
       
       child: Column(
+
         crossAxisAlignment: CrossAxisAlignment.start,
         
         children: [
@@ -26,10 +28,10 @@ class TodoListItem extends StatelessWidget {
             fontSize: 12,
             ),
           ),
-
+    
           Text(title,
           style: TextStyle(
-            fontSize: 16,
+            fontSize: 18,
             fontWeight: FontWeight.w700,
           ),
           ),

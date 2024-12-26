@@ -18,118 +18,119 @@ class _ToDoListPageState extends State<ToDoListPage> {
   @override
   Widget build(BuildContext context) {
     
-    return Scaffold(
-        body: Center(
-
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            
-            child: Column(
-
-              mainAxisSize: MainAxisSize.min,
-              children: [
+    return SafeArea(
+      child: Scaffold(
+          body: Center(
+      
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+      
+                mainAxisSize: MainAxisSize.min,
                 
-                Row(
-                  
-                  children: [
+                children: [
+                  Row(
                     
-                    Expanded( 
-                      child: TextField(
-                        controller: todoController,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Adicione uma tarefa',
-                          hintText: 'Ex: Estudar Flutter'
+                    children: [
+                      
+                      Expanded( 
+                        child: TextField(
+                          controller: todoController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Adicione uma tarefa',
+                            hintText: 'Ex: Estudar Flutter'
+                          ),
                         ),
                       ),
-                    ),
-                
-                    SizedBox(width: 8),
-                
-                    ElevatedButton(onPressed: (){
-                      String text = todoController.text;
-
-                      setState(() {
-
-                        todo.add(text);
-                      });
-
-                      todoController.clear();
-
-                    },
-
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 24, 128, 255),
-                      padding: EdgeInsets.all(16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                
-                     child: Icon(
-                      Icons.add,
-                      size: 30,
-                      color: Colors.white,
-                     ),
-                    ),
-                  ],
-                ),
-
-
-              SizedBox(height: 16),
-              
-              Flexible(
-                
-                child: ListView(
-                  shrinkWrap: true,
-                  children: [
-                    
-                    for(String item in todo)
-                      TodoListItem(
-                        title: item,
-                      ),
-                
-                  ],
-                ),
-              ),
-
-                SizedBox(height: 16),
-
-                Row(
                   
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'Você possui 0 tarefas pendentes',
-                      ),
-                    ),
-
-                    ElevatedButton(onPressed: (){},
+                      SizedBox(width: 8),
+                  
+                      ElevatedButton(onPressed: (){
+                        String text = todoController.text;
+      
+                        setState(() {
+      
+                          todo.add(text);
+                        });
+      
+                        todoController.clear();
+      
+                      },
+      
                       style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 24, 128, 255),
-                      padding: const EdgeInsets.all(16), 
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        backgroundColor: const Color.fromARGB(255, 24, 128, 255),
+                        padding: EdgeInsets.all(16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
-                      ),
-
-                    child: 
-                      Text(
-                      'Limpar tudo',
-                      style: TextStyle(
+                  
+                       child: Icon(
+                        Icons.add,
+                        size: 30,
                         color: Colors.white,
+                       ),
                       ),
-                    ),
-                    
-                    ),
-                  ],
+                    ],
+                  ),
+      
+      
+                SizedBox(height: 16),
+                
+                Flexible(
+                  
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: [
+                      
+                      for(String item in todo)
+                        TodoListItem(
+                          title: item,
+                        ),
+                  
+                    ],
+                  ),
                 ),
-
-
-              ],
+      
+                  SizedBox(height: 16),
+      
+                  Row(
+                    
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Você possui ${todo.length} tarefas pendentes',
+                        ),
+                      ),
+      
+                      ElevatedButton(onPressed: (){},
+                        style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromARGB(255, 24, 128, 255),
+                        padding: const EdgeInsets.all(16), 
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        ),
+      
+                      child: 
+                        Text(
+                        'Limpar tudo',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      
+                      ),
+                    ],
+                  ),
+      
+      
+                ],
+              ),
             ),
           ),
         ),
-      );
+    );
   }
 }
