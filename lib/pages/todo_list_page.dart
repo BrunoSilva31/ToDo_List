@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:todo_list/models/todo.dart';
 import 'package:todo_list/widgets/todo_list_item.dart';
 
 class ToDoListPage extends StatefulWidget {
@@ -11,7 +12,8 @@ class ToDoListPage extends StatefulWidget {
 }
 
 class _ToDoListPageState extends State<ToDoListPage> {
-  List<String> todo = [];
+  
+  List<Todo> todo = [];
 
   final TextEditingController todoController = TextEditingController();
 
@@ -50,8 +52,11 @@ class _ToDoListPageState extends State<ToDoListPage> {
                         String text = todoController.text;
       
                         setState(() {
-      
-                          todo.add(text);
+                          Todo newTodo = Todo (
+                            title: text,
+                            date: DateTime.now(),
+                          );
+                          todo.add(newTodo);
                         });
       
                         todoController.clear();
@@ -84,9 +89,9 @@ class _ToDoListPageState extends State<ToDoListPage> {
                     shrinkWrap: true,
                     children: [
                       
-                      for(String item in todo)
+                      for(Todo item in todo)
                         TodoListItem(
-                          title: item,
+                          todo: item,
                         ),
                   
                     ],
