@@ -13,7 +13,9 @@ class ToDoListPage extends StatefulWidget {
 
 class _ToDoListPageState extends State<ToDoListPage> {
   
-  List<Todo> todo = [];
+  List<Todo> todos = [];
+  Todo? deletedTodo;
+  int? deleteTodoPos;
 
   final TextEditingController todoController = TextEditingController();
 
@@ -56,7 +58,7 @@ class _ToDoListPageState extends State<ToDoListPage> {
                             title: text,
                             date: DateTime.now(),
                           );
-                          todo.add(newTodo);
+                          todos.add(newTodo);
                         });
       
                         todoController.clear();
@@ -89,9 +91,10 @@ class _ToDoListPageState extends State<ToDoListPage> {
                     shrinkWrap: true,
                     children: [
                       
-                      for(Todo item in todo)
+                      for(Todo todo in todos)
                         TodoListItem(
-                          todo: item,
+                          todo: todo,
+                          onDelete: onDelete,
                         ),
                   
                     ],
@@ -105,11 +108,12 @@ class _ToDoListPageState extends State<ToDoListPage> {
                     children: [
                       Expanded(
                         child: Text(
-                          'Você possui ${todo.length} tarefas pendentes',
+                          'Você possui ${todos.length} tarefa(s) pendente(s)',
                         ),
                       ),
       
-                      ElevatedButton(onPressed: (){},
+                      ElevatedButton(
+                        onPressed: showDeleteTodosConfirmationDialog,
                         style: ElevatedButton.styleFrom(
                         backgroundColor: Color.fromARGB(255, 24, 128, 255),
                         padding: const EdgeInsets.all(16), 
@@ -137,5 +141,74 @@ class _ToDoListPageState extends State<ToDoListPage> {
           ),
         ),
     );
+  }
+
+  void onDelete (Todo todo) {
+    deletedTodo = todo;
+    deleteTodoPos = todos.indexOf(todo);
+
+    setState(() {
+      todos.remove(todo);
+    });
+
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Tarefa ${todo.title} foi removida com sucesso!', style: TextStyle(
+        color: Color(0xff060708),
+        ),
+      ),
+      backgroundColor: Colors.white,
+
+      action: SnackBarAction(
+        label: 'Desfazer',
+        textColor: const Color.fromARGB(255, 24, 128, 255),
+        onPressed: (){
+          setState(() {
+            todos.insert(deleteTodoPos!, deletedTodo!);
+          });
+        },
+      ),
+      ),
+    );
+  }
+
+
+  void showDeleteTodosConfirmationDialog() {
+    showDialog(
+      context: context, 
+      builder: (context) => AlertDialog(
+        title: Text('Limpar tudo?'),
+        content: Text('Tem certeza?'),
+        actions: [
+          TextButton(
+            onPressed: (){
+              Navigator.of(context).pop();
+            }, 
+            
+            style: TextButton.styleFrom(foregroundColor: Color.fromARGB(255, 24, 128, 255),
+            ),
+            child: Text('Cancelar'),
+            ),
+
+          TextButton(
+            onPressed: (){
+              Navigator.of(context).pop();
+              deleteAllTodos();
+            }, 
+
+            style: TextButton.styleFrom(foregroundColor: Colors.red,
+            ),
+
+            child: Text('Limpar tudo')
+            ),
+        ],
+      ),
+      );
+  }
+
+  void deleteAllTodos(){
+    setState(() {
+      todos.clear();
+    });
   }
 }
