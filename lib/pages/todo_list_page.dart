@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:todo_list/models/todo.dart';
+import 'package:todo_list/repositories/todo_repository.dart';
 import 'package:todo_list/widgets/todo_list_item.dart';
 
 class ToDoListPage extends StatefulWidget {
@@ -18,6 +19,7 @@ class _ToDoListPageState extends State<ToDoListPage> {
   int? deleteTodoPos;
 
   final TextEditingController todoController = TextEditingController();
+  final TodoRepository todoRepository = TodoRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -56,13 +58,13 @@ class _ToDoListPageState extends State<ToDoListPage> {
                         setState(() {
                           Todo newTodo = Todo (
                             title: text,
-                            date: DateTime.now(),
+                            dateTime: DateTime.now(),
                           );
                           todos.add(newTodo);
                         });
       
                         todoController.clear();
-      
+                        todoRepository.saveTodoList(todos);
                       },
       
                       style: ElevatedButton.styleFrom(

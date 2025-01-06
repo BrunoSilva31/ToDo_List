@@ -50,7 +50,7 @@ class TodoListItem extends StatelessWidget {
             
             children: [
               Text(
-              DateFormat('dd/MMM/yyyy - HH:mm').format(todo.date), 
+              DateFormat('dd/MMM/yyyy - HH:mm').format(todo.dateTime), 
               style: TextStyle(
                 fontSize: 12,
                 ),
