@@ -168,8 +168,7 @@ class _ToDoListPageState extends State<ToDoListPage> {
                       ),
                     ],
                   ),
-      
-      
+
                 ],
               ),
             ),
@@ -177,7 +176,7 @@ class _ToDoListPageState extends State<ToDoListPage> {
         ),
     );
   }
-
+  
   void onDelete (Todo todo) {
     deletedTodo = todo;
     deleteTodoPos = todos.indexOf(todo);
@@ -190,10 +189,10 @@ class _ToDoListPageState extends State<ToDoListPage> {
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('Tarefa ${todo.title} foi removida com sucesso!', style: TextStyle(
-        color: Color(0xff060708),
+        color: Colors.white,
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
 
       action: SnackBarAction(
         label: 'Desfazer',
@@ -209,7 +208,6 @@ class _ToDoListPageState extends State<ToDoListPage> {
       ),
     );
   }
-
 
   void showDeleteTodosConfirmationDialog() {
     showDialog(
@@ -251,4 +249,5 @@ class _ToDoListPageState extends State<ToDoListPage> {
     todoRepository.saveTodoList(todos);
 
   }
+
 }
