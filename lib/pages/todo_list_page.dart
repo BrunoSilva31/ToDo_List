@@ -18,6 +18,7 @@ class _ToDoListPageState extends State<ToDoListPage> {
   Todo? deletedTodo;
   int? deleteTodoPos;
 
+  String? errorText;
 
   @override
   void initState() {
@@ -58,7 +59,17 @@ class _ToDoListPageState extends State<ToDoListPage> {
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: 'Adicione uma tarefa',
-                            hintText: 'Ex: Estudar Flutter'
+                            hintText: 'Ex: Estudar Flutter',
+                            errorText: errorText,
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Color.fromARGB(255, 24, 128, 255),
+                              width: 2,
+                              ),
+                            ),
+
+                            labelStyle: TextStyle(
+                              color: Color.fromARGB(255, 24, 128, 255),
+                            ),
                           ),
                         ),
                       ),
@@ -67,6 +78,14 @@ class _ToDoListPageState extends State<ToDoListPage> {
                   
                       ElevatedButton(onPressed: (){
                         String text = todoController.text;
+
+                        if(text.isEmpty){
+                          setState(() {
+                            errorText = 'A tarefa não pode estar vazia!';
+                          });
+                          
+                          return;
+                        }
       
                         setState(() {
                           Todo newTodo = Todo (
@@ -74,6 +93,7 @@ class _ToDoListPageState extends State<ToDoListPage> {
                             dateTime: DateTime.now(),
                           );
                           todos.add(newTodo);
+                          errorText = null;
                         });
       
                         todoController.clear();
@@ -229,6 +249,6 @@ class _ToDoListPageState extends State<ToDoListPage> {
       todos.clear();
     });
     todoRepository.saveTodoList(todos);
-    
+
   }
 }
